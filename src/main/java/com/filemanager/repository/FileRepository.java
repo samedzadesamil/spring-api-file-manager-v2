@@ -4,11 +4,21 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class FileRepository {
+
+    public  void copyFile(String sourceFilePath, String targetFolderPath) throws IOException {
+        Path sourcePath = Path.of(sourceFilePath);
+        Path targetPath = Path.of(targetFolderPath, sourcePath.getFileName().toString());
+        Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+    }
+
 
 
     public void createDirectoriesAndSaveFile(String baseDirectoryPath, String filePath) throws  IOException {

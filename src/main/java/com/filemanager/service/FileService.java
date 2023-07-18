@@ -1,6 +1,7 @@
 package com.filemanager.service;
 
 import com.filemanager.dto.FileDto;
+import com.filemanager.dto.UploadFileDto;
 import com.filemanager.repository.FileRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,19 @@ public class FileService {
     public FileService(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
+
+
+    public String upploadFile(UploadFileDto fileDto)  {
+        String targetFolder=BASE_DIRECTORY+"/"+fileDto.getTargetFolderString();
+        try {
+            fileRepository.copyFile(fileDto.getSourceFilePath(),targetFolder);
+            return "file yukelndi";
+        } catch (IOException e) {
+            return "file yuklenmedi error: "+e.getMessage();
+        }
+
+    }
+
 
     public String addFile( String filePath) {
 
