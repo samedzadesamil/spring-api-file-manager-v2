@@ -6,9 +6,7 @@ import com.filemanager.repository.FileRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,12 +20,12 @@ public class FileService {
 
 
     public String upploadFile(UploadFileDto fileDto)  {
-        String targetFolder=BASE_DIRECTORY+"/"+fileDto.getTargetFolderString();
+        String targetFolder=BASE_DIRECTORY+"/"+fileDto.getTargetFolderPath();
         try {
             fileRepository.copyFile(fileDto.getSourceFilePath(),targetFolder);
-            return "file yukelndi";
+            return "file uploaded successfully";
         } catch (IOException e) {
-            return "file yuklenmedi error: "+e.getMessage();
+            return "error: "+e.getMessage();
         }
 
     }
